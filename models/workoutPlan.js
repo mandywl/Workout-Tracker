@@ -3,14 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const workoutSchema = new Schema({
-  date: {
+  day: {
     type: Date
   },
-  exercises: {
-    type: Array,
-    trim: true,
-    required: "Enter a name for transaction"
-  }
+  exercises: Array
 });
 
 const Workout = mongoose.model("Workout", workoutSchema);
