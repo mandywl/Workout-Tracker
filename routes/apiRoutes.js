@@ -21,8 +21,9 @@ router.get("/api/workouts/range", (req, res) => {
     });
 });
 
-router.put("/api/workouts/:id", (req, res) => {
-  db.Workout.create({ $day: date.now })
+router.put("/api/workouts/:id", ({ body }, res) => {
+  console.log("body is", body);
+  db.Workout.insertMany({ exercises: body })
     .then((dbWorkout) => {
       res.json(dbWorkout);
     })

@@ -29,7 +29,6 @@ async function initExercise() {
   if (workout) {
     location.search = "?id=" + workout._id;
   }
-
 }
 
 initExercise();
@@ -107,6 +106,12 @@ async function handleFormSubmit(event) {
     workoutData.name = cardioNameInput.value.trim();
     workoutData.distance = Number(distanceInput.value.trim());
     workoutData.duration = Number(durationInput.value.trim());
+    console.log(
+      "duration is",
+      Number(repsInput.value.trim()),
+      Number(resistanceDurationInput.value.trim())
+    );
+    console.log("workoutData is", workoutData);
   } else if (workoutType === "resistance") {
     workoutData.type = "resistance";
     workoutData.name = nameInput.value.trim();
@@ -114,6 +119,7 @@ async function handleFormSubmit(event) {
     workoutData.sets = Number(setsInput.value.trim());
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
+    console.log("workoutData is", workoutData);
   }
 
   await API.addExercise(workoutData);
@@ -155,4 +161,4 @@ toast.addEventListener("animationend", handleToastAnimationEnd);
 
 document
   .querySelectorAll("input")
-  .forEach(element => element.addEventListener("input", validateInputs));
+  .forEach((element) => element.addEventListener("input", validateInputs));
