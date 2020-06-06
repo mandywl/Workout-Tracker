@@ -9,9 +9,8 @@ async function initWorkout() {
 
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
       numExercises: lastWorkout.exercises.length,
-      ...tallyExercises(lastWorkout.exercises)
+      ...tallyExercises(lastWorkout.exercises),
     };
 
     renderWorkoutSummary(workoutSummary);
@@ -26,8 +25,10 @@ function tallyExercises(exercises) {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
       acc.totalSets = (acc.totalSets || 0) + curr.sets;
       acc.totalReps = (acc.totalReps || 0) + curr.reps;
+      acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
     } else if (curr.type === "cardio") {
       acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
+      acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
     }
     return acc;
   }, {});
@@ -39,7 +40,7 @@ function formatDate(date) {
     weekday: "long",
     year: "numeric",
     month: "long",
-    day: "numeric"
+    day: "numeric",
   };
 
   return new Date(date).toLocaleDateString(options);
@@ -55,10 +56,10 @@ function renderWorkoutSummary(summary) {
     totalWeight: "Total Weight Lifted",
     totalSets: "Total Sets Performed",
     totalReps: "Total Reps Performed",
-    totalDistance: "Total Distance Covered"
+    totalDistance: "Total Distance Covered",
   };
 
-  Object.keys(summary).forEach(key => {
+  Object.keys(summary).forEach((key) => {
     const p = document.createElement("p");
     const strong = document.createElement("strong");
 
