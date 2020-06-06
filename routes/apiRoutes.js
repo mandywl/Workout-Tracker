@@ -22,7 +22,6 @@ router.get("/api/workouts/range", (req, res) => {
 });
 
 router.put("/api/workouts/:id", (req, res) => {
-  console.log("body is", req.params.id);
   db.Workout.findByIdAndUpdate(
     { _id: req.params.id },
     { $push: { exercises: req.body } }
